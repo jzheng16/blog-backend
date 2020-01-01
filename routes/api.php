@@ -23,3 +23,8 @@ Route::get('/posts', function (Request $req) {
     \Log::info('This is some useful information.');
     return $posts;
 });
+
+
+Route::get('/posts/{postId}', 'PostController@show');
+
+Route::post('/post', 'PostController@create');

@@ -23,9 +23,7 @@ class PostController extends Controller
         // dd($post);
 
 
-        return view('post', [
-            'post' => $post
-        ]);
+        return $post;
     }
 
 
@@ -36,5 +34,24 @@ class PostController extends Controller
         return view('posts', [
             'posts' => $posts
         ]);
+    }
+
+    public function create(Request $request)
+    {
+
+        $title = $request->input('title');
+        $description = $request->input('description');
+        // Hardcoded for now
+        $user_id = 1;
+        // Instantiate new post object
+        $post = new Post;
+        $post->title = $title;
+        $post->description = $description;
+        $post->user_id = $user_id;
+        $post->save();
+        return response()->json([
+            'success' => TRUE,
+            'error_message' => null
+        ], 201);
     }
 }

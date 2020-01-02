@@ -27,13 +27,19 @@ class PostController extends Controller
     }
 
 
-    public function getAll()
+    public function getPosts(Request $request)
     {
-        $posts = Post::all();
+        \Log::info('This is some useful information.');
+        $page = $request->query('page');
+        $results = $request->query('results');
 
-        return view('posts', [
-            'posts' => $posts
-        ]);
+        if (!$page && !$results) {
+            $posts = Post::all();
+            return $posts;
+        }
+
+        $posts = Post::paginate($results);
+        return $posts;
     }
 
     public function create(Request $request)

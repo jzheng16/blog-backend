@@ -18,11 +18,7 @@ use App\Post;
 //     return $request->user();
 // });
 
-Route::get('/posts', function (Request $req) {
-    $posts = Post::all();
-    \Log::info('This is some useful information.');
-    return $posts;
-});
+Route::get('/posts', 'PostController@getPosts');
 
 
 Route::get('/posts/{postId}', 'PostController@show');

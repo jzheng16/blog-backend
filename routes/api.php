@@ -24,3 +24,6 @@ Route::get('/posts', 'PostController@getPosts');
 Route::get('/posts/{postId}', 'PostController@show');
 
 Route::post('/post', 'PostController@create');
+
+
+Route::get('/categories', 'CategoryController@getAll');

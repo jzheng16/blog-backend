@@ -34,11 +34,14 @@ class PostController extends Controller
         $results = $request->query('results');
 
         if (!$page && !$results) {
-            $posts = Post::all();
+            $posts = Post::join('category', 'category.id = posts.category_id')->all();
             return $posts;
         }
 
-        $posts = Post::paginate($results);
+        $posts = DB::table('posts')
+            ->join('category', 'posts.category_id', '=', 'category.id')
+            ->select('*')
+            ->paginate($results);
         return $posts;
     }
 
@@ -47,6 +50,8 @@ class PostController extends Controller
 
         $title = $request->input('title');
         $description = $request->input('description');
+        $category_id = $request->input('category_id');
+        \Log::info($category_id);
         // Hardcoded for now
         $user_id = 1;
         // Instantiate new post object
@@ -54,6 +59,9 @@ class PostController extends Controller
         $post->title = $title;
         $post->description = $description;
         $post->user_id = $user_id;
+        $post->category_id = $category_id;
+        $post->published_at = now();
+
         $post->save();
         return response()->json([
             'success' => TRUE,

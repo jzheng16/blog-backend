@@ -18,6 +18,7 @@ class CategoryTableSeeder extends Seeder
         foreach ($categories as $category) {
             Log::debug(var_dump($category));
             Category::create([
+                'id' => $category->id,
                 'name' => $category->name,
                 'description' => $category->description,
             ]);

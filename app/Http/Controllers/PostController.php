@@ -29,7 +29,7 @@ class PostController extends Controller
 
     public function getPosts(Request $request)
     {
-        \Log::info('This is some useful information.');
+        info('This is some useful information.');
         $page = $request->query('page');
         $results = $request->query('results');
 
@@ -40,7 +40,8 @@ class PostController extends Controller
 
         $posts = DB::table('posts')
             ->join('category', 'posts.category_id', '=', 'category.id')
-            ->select('*')
+            ->select('*', 'posts.id as id', 'category.id as category_id', 'category.name as category_name')
+            ->orderBy('posts.id', 'DESC')
             ->paginate($results);
         return $posts;
     }

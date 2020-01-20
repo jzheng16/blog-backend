@@ -18,9 +18,9 @@ class PostController extends Controller
         // $post = DB::select('SELECT * FROM posts where id = ?', [$postId]);
 
         //NOT WORKING
-        $post = Post::where('id', $postId)->firstOrFail();
+        // $post = Post::where('id', $postId)->firstOrFail();
+        $post = Post::with(['category', 'user'])->where('id', $postId)->firstOrFail();
 
-        // dd($post);
 
 
         return $post;
@@ -40,7 +40,7 @@ class PostController extends Controller
 
         $posts = DB::table('posts')
             ->join('category', 'posts.category_id', '=', 'category.id')
-            ->select('*', 'posts.id as id', 'category.id as category_id', 'category.name as category_name')
+            ->select('*', 'posts.id as id', 'posts.description as description', 'category.id as category_id', 'category.name as category_name')
             ->orderBy('posts.id', 'DESC')
             ->paginate($results);
         return $posts;

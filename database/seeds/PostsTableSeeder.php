@@ -23,6 +23,7 @@ class PostsTableSeeder extends Seeder
                 'published_at' => $post->published_at,
                 'user_id' => $post->user_id,
                 'category_id' => $post->category_id,
+                'likes' => $post->likes,
             ]);
         }
     }

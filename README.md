@@ -22,3 +22,29 @@ Laravel has the most extensive and thorough [documentation](https://laravel.com/
 If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
 
+
+
+
+## Personal Notes 
+
+### Commands 
+  1. Create MVC shortcut: php artisan make:model Project -mc 
+  2. Create migration: php artisan make:migrate create_posts_table
+  3. Migrate/Rollback: php artisan migrate / migrate:rollback
+  4. Seed DB: php artisan db:seed --class DatabaseSeeder
+
+### Routes
+  1. API routes are defined within routes/api.php
+  2. View routes are defined within routes/web.php
+
+### Models
+
+  **Defining Relationships**
+  [Laravel Relationships](https://laravel.com/docs/5.8/eloquent-relationships#one-to-many)
+  Define relationships within the model classes for each table. 
+  Types:
+  1. One to one -> $this->hasOne('phone'); $this->belongsTo('user')
+  2. 
+    
+
+  

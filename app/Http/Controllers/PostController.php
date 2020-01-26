@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 use DB;
 use App\Post;
+use Illuminate\Support\Facades\Log;
 
 class PostController extends Controller
 {
@@ -30,11 +31,15 @@ class PostController extends Controller
     public function getPosts(Request $request)
     {
         info('This is some useful information.');
+
+
         $page = $request->query('page');
         $results = $request->query('results');
 
+
         if (!$page && !$results) {
             $posts = Post::join('category', 'category.id = posts.category_id')->all();
+            info(print_r($posts, TRUE));
             return $posts;
         }
 
@@ -43,6 +48,8 @@ class PostController extends Controller
             ->select('*', 'posts.id as id', 'posts.description as description', 'category.id as category_id', 'category.name as category_name')
             ->orderBy('posts.id', 'DESC')
             ->paginate($results);
+
+        info(print_r($posts, TRUE));
         return $posts;
     }
 
@@ -66,6 +73,16 @@ class PostController extends Controller
         $post->save();
         return response()->json([
             'success' => TRUE,
+            'error_message' => null
+        ], 201);
+    }
+
+    public function updatePost(Request $request, $post_id)
+    {
+        info(print_r($request->input(), TRUE));
+        $update = Post::find($post_id)->update($request->input());
+        return response()->json([
+            'success' => $update,
             'error_message' => null
         ], 201);
     }
